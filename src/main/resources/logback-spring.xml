@@ -9,7 +9,7 @@
     <!--项目名称-->
     <property name="APP_NAME" value="technology-learning"/>
     <!--日志级别,此处配置级别会被配置文件中覆盖，如果配置文件不配置默认走此处级别-->
-    <property name="log.level" value="info"/>
+    <property name="log.level" value="debug"/>
     <!-- 日志最大的历史（单位：天 ）不配置视为永久保存-->
     <property name="log.maxHistory" value="2"/>
     <!--日志切割最大大小-->
