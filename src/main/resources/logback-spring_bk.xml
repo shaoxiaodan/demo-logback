@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<configuration>
+
+<!-- logback官方网站：https://logback.qos.ch/ -->
+ 
+	<!-- 日志输出级别控制 -->
+	<root level="INFO">
+		<appender-ref ref="consoleApp" />
+		<appender-ref ref="fileInfoApp" />
+		<appender-ref ref="fileErrorApp" />
+	</root>
+
+	<!-- 控制台输出配置 -->
+	<appender name="consoleApp" class="ch.qos.logback.core.ConsoleAppender">
+		<layout class="ch.qos.logback.classic.PatternLayout">
+			<pattern>
+				%date{yyyy-MM-dd HH:mm:ss.SSS} %-5level[%thread]%logger{56}.%method:%L -%msg%n
+			</pattern>
+		</layout>
+	</appender>
+	
+	<!-- info日志文件输出配置 -->
+	<appender name="fileInfoApp" class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<fileter class="ch.qos.logback.classic.filter.LevelFilter">
+			<level>ERROR</level>
+			<onMatch>DENY</onMatch>
+			<onMismatch>ACCEPT</onMismatch>
+		</fileter>
+		<encoder>
+			<pattern>
+				%date{yyyy-MM-dd HH:mm:ss.SSS} %-5level[%thread]%logger{56}.%method:%L -%msg%n
+			</pattern>
+		</encoder>
+		<!-- 配置滚动策略 -->
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<fileNamePattern>app_log/log/app.info.%d.log</fileNamePattern>
+		</rollingPolicy>
+	</appender>
+	
+	<!-- error日志文件输出配置 -->
+	<appender name="fileInfoApp"
+		class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+			<level>ERROR</level>
+		</filter>
+		<encoder>
+			<pattern>
+				%date{yyyy-MM-dd HH:mm:ss.SSS} %-5level[%thread]%logger{56}.%method:%L -%msg%n
+			</pattern>
+		</encoder>
+		<!-- 配置滚动策略 -->
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<!-- 日志文件路径 -->
+			<fileNamePattern>app_log/log/app.err.%d.log</fileNamePattern>
+			
+			<!-- 保留日志的最大归档数量，超出该数量，将删除旧文件。现设置为每个月滚动，且maxHistory=1，则表示保存最近1个月的日志文件，并删除之前的旧日志文件 -->
+			<MaxHistory>1</MaxHistory>
+		</rollingPolicy>
+	</appender>
+
+</configuration>
